@@ -1,6 +1,6 @@
 "use client";
 
-export default function Ativos() {
+export default function Historico() {
     return (
         <div>
            

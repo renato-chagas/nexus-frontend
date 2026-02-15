@@ -1,9 +1,11 @@
 "use client";
 
-export default function Ativos() {
+export default function Softwares() {
     return (
         <div>
            
         </div>
     );
 }
+
+

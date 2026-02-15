@@ -22,22 +22,22 @@ export function Menu() {
     {
       icon: Users,
       label: "Funcionarios",
-      router: "/Funcionarios",
+      router: "/funcionarios",
     },
     {
       icon: Tag,
       label: "Categorias",
-      router: "/Categorias",
+      router: "/categorias",
     },
     {
       icon: Book,
-      label: "Software",
-      router: "/Software",
+      label: "Softwares",
+      router: "/softwares",
     },
     {
       icon: History,
       label: "Historico",
-      router: "/Historico",
+      router: "/historico",
     },
 ];
 
