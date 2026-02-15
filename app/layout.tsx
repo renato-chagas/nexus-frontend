@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
-import '../styles/global.css';
+import type { Metadata } from "next";
+import "@/styles/global.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: 'Nexus Inventory',
-  description: 'Sistema de Gestão de Ativos de TI',
+  title: "Nexus Inventory",
+  description: "Sistema de Gestão de Ativos de TI",
 };
 
 export default function RootLayout({
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

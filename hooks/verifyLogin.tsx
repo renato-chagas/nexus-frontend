@@ -1,13 +1,19 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export function useVerifyLogin() {
   const router = useRouter();
+  const { accessToken, loading } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      router.replace("/home");
+    // Se terminou de carregar e não há token, redireciona para login
+    if (!loading && !accessToken) {
+      router.replace("/login");
     }
-  }, [router]);
+    // Se há token, redireciona para dashboard (usuário já logado)
+    else if (!loading && accessToken) {
+      router.replace("/dashboard");
+    }
+  }, [accessToken, loading, router]);
 }

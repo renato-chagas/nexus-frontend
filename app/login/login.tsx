@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Package, Mail, Lock } from "lucide-react";
-
+import { Eye, EyeOff, Package } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 import LoginInput from "@/components/login/input";
-
 import { useVerifyLogin } from "@/hooks/verifyLogin";
 
 export function Login() {
   const router = useRouter();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,15 +25,16 @@ export function Login() {
     setError("");
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/token/.", {
+      const res = await fetch("http://127.0.0.1:8000/api/token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await res.json();
       if (res.ok && data.access) {
-        localStorage.setItem("access_token", data.access);
-        router.push("/home");
+        login(data.access, data.refresh || "");
+        router.push("/dashboard");
       } else {
         setError("Email ou senha inválidos.");
       }
