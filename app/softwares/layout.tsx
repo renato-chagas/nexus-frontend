@@ -1,5 +1,5 @@
-import Menu from "@/components/global/menu";
-import Header from "@/components/global/header";
+import Menu from "@/components/navigation/Menu";
+import Header from "@/components/navigation/Header";
 
 export default function SoftwareLayout({
   children,

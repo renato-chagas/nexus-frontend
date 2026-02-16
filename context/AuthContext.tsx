@@ -119,7 +119,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [refreshAccessToken],
   );
 
-  // Carregar estado de autenticação ao inicializar
   useEffect(() => {
     console.log("[Auth] Inicializando contexto de autenticação");
     const storedAccessToken = localStorage.getItem("access_token");

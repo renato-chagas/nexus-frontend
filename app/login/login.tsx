@@ -2,25 +2,17 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Package } from "lucide-react";
+import { Package } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import LoginInput from "@/components/login/input";
-import { useVerifyLogin } from "@/hooks/verifyLogin";
+import { LoginForm } from "@/components/forms";
 
 export function Login() {
   const router = useRouter();
   const { login } = useAuth();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useVerifyLogin();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (email: string, password: string) => {
     setLoading(true);
     setError("");
 
@@ -39,7 +31,7 @@ export function Login() {
         setError("Email ou senha inválidos.");
       }
     } catch (err) {
-      setError("Email ou senha inválidos.");
+      setError("Erro ao fazer login. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -47,7 +39,7 @@ export function Login() {
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 px-8">
-      <div className="bg-white rounded-xl shadow-2xl flex flex-col items-center w-full max-w-md pb-10 ">
+      <div className="bg-white rounded-xl shadow-2xl flex flex-col items-center w-full max-w-md pb-10">
         <div className="flex flex-col items-center mt-8 mb-4">
           <div className="bg-blue-600 p-3 rounded-xl mb-4 shadow-lg">
             <Package className="text-white" size={32} />
@@ -59,42 +51,14 @@ export function Login() {
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-4 flex flex-col items-stretch w-full px-4"
-        >
-          <LoginInput
-            label="Email"
-            type="email"
-            value={email}
-            onChange={setEmail}
-            placeholder="seu@email.com"
-            icon="mail"
-          />
-
-          <LoginInput
-            label="Senha"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={setPassword}
-            placeholder="••••••••"
-            icon="lock"
-            showPassword={showPassword}
-            toggleShowPassword={() => setShowPassword(!showPassword)}
-          />
-
+        <div className="w-full px-4">
           {error && (
-            <p className="text-red-500 text-xs italic text-center">{error}</p>
+            <p className="text-red-500 text-sm text-center mb-4 bg-red-100 p-2 rounded">
+              {error}
+            </p>
           )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 disabled:opacity-50"
-          >
-            {loading ? "Entrando..." : "Entrar"}
-          </button>
-        </form>
+          <LoginForm onSubmit={handleSubmit} isLoading={loading} />
+        </div>
       </div>
     </div>
   );
