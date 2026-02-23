@@ -1,4 +1,4 @@
-
+// ================= Auth =================
 export interface User {
   id?: number;
   username?: string;
@@ -60,24 +60,38 @@ export interface ButtonProps {
   className?: string;
 }
 
-// ============== Features ==============
+export interface InfoCardProps {
+  title: string;
+  value: string | number;
+  icon: React.ReactNode;
+  className?: string;
+  router: string;
+}
 
-// Exemplo:
-// export interface Ativo {
-//   id: number;
-//   nome: string;
-//   ...
-// }
+// ============== Models ==============
 
-// export interface Categoria {
-//   id: number;
-//   nome: string;
-//   ...
-// }
+export interface Asset {
+  id?: number;
+  name: string;
+  category_id?: number;
+  installed_software?: string[];
+  specs?: string;
+  serial_number?: string;
+  status?: string;
+  bought_price?: number;
+  bought_date?: Date;
+  person_in_charge_id?: number;
+  asset_history?: AssetHistory[];
+  image_url?: string;
+}
 
-// export interface Funcionario {
-//   id: number;
-//   nome: string;
-//   email: string;
-//   ...
-// }
+export interface Employee {
+  id?: number;
+  name: string;
+  surname: string;
+  email: string;
+  phone?: string;
+  departament?: string;
+  hire_date?: Date;
+  assets?: Asset[];
+}

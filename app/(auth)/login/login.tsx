@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Package } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { LoginForm } from "@/components/forms";
+import { DEFAULT_API_HEADERS } from "@/constants/api";
 
 export function Login() {
   const router = useRouter();
@@ -19,18 +20,19 @@ export function Login() {
     try {
       const res = await fetch("http://127.0.0.1:8000/api/token/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: DEFAULT_API_HEADERS,
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
+
       if (res.ok && data.access) {
         login(data.access, data.refresh || "");
         router.push("/dashboard");
       } else {
         setError("Email ou senha inválidos.");
       }
-    } catch (err) {
+    } catch {
       setError("Erro ao fazer login. Tente novamente.");
     } finally {
       setLoading(false);

@@ -2,6 +2,6 @@
 
 import DashBoard from './dashboard';
 
-export default function LoginPage() {
+export default function DashboardPage() {
   return <DashBoard />;
 }
