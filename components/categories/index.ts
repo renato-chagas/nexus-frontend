@@ -1,1 +1,2 @@
 // Componentes relacionados a categorias
+

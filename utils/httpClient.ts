@@ -26,6 +26,11 @@ export async function apiCall(
 
     if (handleUnauthorized) handleUnauthorized();
     return null;
+
+  }
+  
+  if (res.status === 204) {
+    return null;
   }
 
   if (res.ok) return res.json();

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "../ui/Input";
-import { Button } from "../ui/Button";
+import { Input } from "../login/Input";
+import { Button } from "../ui/button";
 
 type LoginFormProps = {
   onSubmit: (username: string, password: string) => void;

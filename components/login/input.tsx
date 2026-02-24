@@ -2,7 +2,7 @@
 
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 
-type LoginInputProps = {
+type InputProps = {
   label: string;
   placeholder?: string;
   type?: string;
@@ -13,7 +13,7 @@ type LoginInputProps = {
   toggleShowPassword?: () => void;
 };
 
-export function LoginInput({
+export function Input({
   label,
   placeholder,
   type = "text",
@@ -22,7 +22,7 @@ export function LoginInput({
   icon,
   showPassword,
   toggleShowPassword,
-}: LoginInputProps) {
+}: InputProps) {
   return (
     <div className="w-full">
       <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -53,7 +53,7 @@ export function LoginInput({
           <button
             type="button"
             onClick={toggleShowPassword}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
@@ -62,5 +62,3 @@ export function LoginInput({
     </div>
   );
 }
-
-export default LoginInput;

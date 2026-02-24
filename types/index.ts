@@ -74,13 +74,14 @@ export interface Asset {
   id?: number;
   name: string;
   category_id?: number;
-  installed_software?: string[];
+  installed_software?: Software[];
   specs?: string;
   serial_number?: string;
   status?: string;
   bought_price?: number;
   bought_date?: Date;
   person_in_charge_id?: number;
+  person_in_charge?: Employee;
   asset_history?: AssetHistory[];
   image_url?: string;
 }
@@ -94,4 +95,36 @@ export interface Employee {
   departament?: string;
   hire_date?: Date;
   assets?: Asset[];
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  tracks_software?: boolean;
+  description?: string;
+  quantity?: number;
+}
+
+export type CreateCategoryDTO = Omit<Category, "id" | "quantity">;
+
+export interface AssetHistory {
+  id?: number;
+  asset_id: number;
+  action_date: Date | string;
+  action_type: 'CHECKOUT' | 'CHECKIN' | 'MAINTENANCE' | 'DISPOSAL';
+  observaitions?: string;
+  employee?: number;
+  employee_id?: number;
+}
+
+export interface CreateAssetHistoryDTO {
+  asset_id: number;
+  action_type: 'CHECKOUT' | 'CHECKIN' | 'MAINTENANCE' | 'DISPOSAL';
+  observaitions?: string;
+}
+
+export interface Software {
+  id: number;
+  name: string;
+  version: string;
 }
