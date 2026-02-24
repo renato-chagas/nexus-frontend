@@ -71,13 +71,13 @@ export default function Ativos() {
       const assetsArray = Array.isArray(response)
         ? response
         : response?.results || [];
-      
+
       // Adicionar fallback para installed_software se não vier do backend
       const assetsWithDefaults = assetsArray.map((asset) => ({
         ...asset,
         installed_software: asset.installed_software || [],
       }));
-      
+
       setAssets(assetsWithDefaults);
       console.log(response);
     } catch (error) {
@@ -118,7 +118,8 @@ export default function Ativos() {
         person_in_charge_id: editFormData.person_in_charge_id,
         status: editFormData.status,
         specs: editFormData.specs,
-        installed_software: editFormData.installed_software?.map((sw) => sw.id) || [],
+        installed_software:
+          editFormData.installed_software?.map((sw) => sw.id) || [],
       };
       await assetService.patch(editingAsset.id, dataToSend, accessToken);
       // Recarregar assets para trazer dados atualizados do backend
@@ -167,9 +168,13 @@ export default function Ativos() {
       // Converter softwares para IDs antes de enviar
       const dataToSend = {
         ...newAsset,
-        installed_software: newAsset.installed_software?.map((sw) => sw.id) || [],
+        installed_software:
+          newAsset.installed_software?.map((sw) => sw.id) || [],
       };
-      const response = await assetService.create(dataToSend as Asset, accessToken);
+      const response = await assetService.create(
+        dataToSend as Asset,
+        accessToken,
+      );
       setAssets((prev) => [...prev, response]);
       closeCreateModal();
     } catch (error) {
@@ -209,7 +214,7 @@ export default function Ativos() {
 
   const getSoftwareInstallCount = (softwareId: number): number => {
     return assets.filter((asset) =>
-      asset.installed_software?.some((sw) => sw.id === softwareId)
+      asset.installed_software?.some((sw) => sw.id === softwareId),
     ).length;
   };
 
@@ -451,7 +456,7 @@ export default function Ativos() {
                   <div className="mt-2 space-y-2 max-h-[200px] overflow-auto">
                     {softwares.map((software) => {
                       const isSelected = editFormData.installed_software?.some(
-                        (sw) => sw.id === software.id
+                        (sw) => sw.id === software.id,
                       );
                       const installCount = getSoftwareInstallCount(software.id);
                       return (
@@ -474,9 +479,10 @@ export default function Ativos() {
                               } else {
                                 setEditFormData({
                                   ...editFormData,
-                                  installed_software: editFormData.installed_software?.filter(
-                                    (sw) => sw.id !== software.id
-                                  ),
+                                  installed_software:
+                                    editFormData.installed_software?.filter(
+                                      (sw) => sw.id !== software.id,
+                                    ),
                                 });
                               }
                             }}
@@ -608,7 +614,7 @@ export default function Ativos() {
                   <div className="mt-2 space-y-2 max-h-[200px] overflow-auto">
                     {softwares.map((software) => {
                       const isSelected = newAsset.installed_software?.some(
-                        (sw) => sw.id === software.id
+                        (sw) => sw.id === software.id,
                       );
                       const installCount = getSoftwareInstallCount(software.id);
                       return (
@@ -631,9 +637,10 @@ export default function Ativos() {
                               } else {
                                 setNewAsset({
                                   ...newAsset,
-                                  installed_software: newAsset.installed_software?.filter(
-                                    (sw) => sw.id !== software.id
-                                  ),
+                                  installed_software:
+                                    newAsset.installed_software?.filter(
+                                      (sw) => sw.id !== software.id,
+                                    ),
                                 });
                               }
                             }}

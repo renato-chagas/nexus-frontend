@@ -44,13 +44,13 @@ export default function Softwares() {
       const assetsArray = Array.isArray(response)
         ? response
         : response?.results || [];
-      
+
       // Adicionar fallback para installed_software se não vier do backend
       const assetsWithDefaults = assetsArray.map((asset) => ({
         ...asset,
         installed_software: asset.installed_software || [],
       }));
-      
+
       setAssets(assetsWithDefaults);
     } catch (error) {
       console.error("Erro ao carregar ativos:", error);
